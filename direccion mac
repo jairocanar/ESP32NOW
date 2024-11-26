@@ -1,0 +1,7 @@
+import network
+
+sta_if = network.WLAN(network.SAP_IF)
+sta_if.active(True)
+sta_mac = sta_if.config("mac")
+mac_address = ':'.join('%02x' % b for b in sta_mac)
+print('Direccion MAC:',mac_address)
