@@ -1,0 +1,33 @@
+import machine
+from machine import Pin, SoftI2C
+from lcd_api import LcdApi
+from i2c_lcd import I2cLcd
+import time
+
+i2c_ADDR = 0x27
+totalRows = 2
+totalColumns = 16
+
+i2c = SoftI2C(scl=Pin(22), sda= Pin(21), freq=10000)
+lcd = I2cLcd(i2c, i2c_ADDR, totalRows, totalColumns)
+
+def scroll_text(text, lcd, row, delay=0.1, direction="right"):
+    text = " " * totalColumns + text + " " * totalColumns
+
+    if direction == "right":
+
+        for i in range(len(text) - totalColumns + 1):
+            lcd.move_to(0,row)
+            lcd.putstr(text[i:i + totalColumns])
+            time.sleep(delay)
+    elif direction == "left":
+
+        for i in range(len(text) - totalColumns + 1): 
+            lcd.move_to(0,row)
+            lcd.putstr(text[-(i + totalColumns):-1 if i ＞ 0 else None])
+            time.sleep(delay)
+
+
+text = "jairo cañar...jonnathan"
+while True:
+    scroll_text(text, lcd, row=0, delay=0.05, direction="left")
