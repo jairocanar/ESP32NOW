@@ -7,7 +7,7 @@ import utime
 # A WLAN interface must be active to send()/recv()
 sta = network.WLAN(network.STA_IF)  # Or network.AP_IF
 sta.active(True)
-sta.disconnect()      # For ESP8266
+sta.disconnect()      
 
 # Initialize ESP-NOW
 esp = espnow.ESPNow()
